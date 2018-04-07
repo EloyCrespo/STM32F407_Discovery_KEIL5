@@ -53,6 +53,8 @@
 
 /* USER CODE BEGIN Includes */
 
+#include "cmsis_os.h"                  // ARM::CMSIS:RTOS:Keil RTX
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -98,6 +100,14 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* USER CODE BEGIN 0 */
 
+extern uint32_t os_time;
+
+
+uint32_t HAL_GetTick(void) {           // Add HAL_GetTick function for STM32Cube HAL
+
+return os_time; 
+
+}
 /* USER CODE END 0 */
 
 /**
@@ -117,7 +127,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+osKernelInitialize (); // Initialize RTOS Kernel for setup
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -139,6 +149,8 @@ int main(void)
   MX_TIM6_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
+
+osKernelStart (); // Begin thread switching
 
   /* USER CODE END 2 */
 
