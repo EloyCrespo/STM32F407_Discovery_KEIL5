@@ -54,6 +54,7 @@
 /* USER CODE BEGIN Includes */
 
 #include "cmsis_os.h"                  // ARM::CMSIS:RTOS:Keil RTX
+#include "Thread.h"  
 
 /* USER CODE END Includes */
 
@@ -127,7 +128,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-osKernelInitialize (); // Initialize RTOS Kernel for setup
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -149,8 +150,9 @@ osKernelInitialize (); // Initialize RTOS Kernel for setup
   MX_TIM6_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-
-osKernelStart (); // Begin thread switching
+	osKernelInitialize (); // Initialize RTOS Kernel for setup
+	Init_Thread ();
+	osKernelStart (); // Begin thread switching
 
   /* USER CODE END 2 */
 
